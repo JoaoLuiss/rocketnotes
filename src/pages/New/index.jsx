@@ -17,6 +17,11 @@ export function New() {
 
   function handleAddLink() {
     setLinks( (prevState) => [...prevState, newLink]);
+    setNewLink('');
+  }
+
+  function handleRemoveLink(linkToBeDeleted) {
+    setLinks( prevState => prevState.filter( link => link !== linkToBeDeleted) );
   }
 
   return (
@@ -38,9 +43,9 @@ export function New() {
               links.map( (link, index) => (
                 <NoteItem 
                   key={ String(index) }
-                  placeholder='Novo link'
+                  placeholder='Link vazio'
                   value={link}
-                  onClick={ () => {} }
+                  onClick={ () => handleRemoveLink(link) }
                 />))
             }
             <NoteItem 
