@@ -42,6 +42,14 @@ export function New() {
   }
 
   async function handleNewNote() {
+    if(!title) {
+      return alert('Digite um título para a nota.');
+    }
+    if (newTag.length > 0 || newLink.length > 0) {
+      return alert(`Você deixou um Marcador ou um Link, mas não o adicionou.
+      \nCertifique-se de adicioná-lo ou removê-lo. `);
+    }
+
     await api.post('/notes', { title, description, tags, links });
     alert('Nota criada com sucesso!');
     navigate('/');
