@@ -13,6 +13,20 @@ import { Container, Brand, Menu, Search, Content, NewNote } from './styles'
 
 export function Home() {
   const [tags, setTags] = useState([]);
+  const [tagsSelected, setTagsSelected] = useState([]);
+
+  function handleToggleTags(tagName) {
+    const alreadySelected = tagsSelected.includes(tagName);
+    if (alreadySelected) {
+      setTagsSelected( prevState => prevState.filter( tag => tag !== tagName));
+    } else {
+      setTagsSelected( prevState => [...prevState, tagName]);
+    }
+  }
+
+  function handleSelectAllTags() {
+    setTagsSelected(tags);
+  }
 
   useEffect( () => {
     async function fetchTags() {
@@ -33,13 +47,21 @@ export function Home() {
       <Header/>
 
       <Menu>
-        <li><ButtonText title='Todos' isActive /></li>
+        <li>
+          <ButtonText 
+            title='Todos' 
+            onClick={ handleSelectAllTags }
+            isActive={ tagsSelected.length === tags.length }
+            />
+        </li>
         {
           tags && tags.map( tag => (
             <li key={ String(tag.id) }>
               <ButtonText 
                 title={tag.name}
-              />
+                onClick={ () => handleToggleTags(tag.name) }
+                isActive={ tagsSelected.includes(tag.name) }
+            />
             </li>
           ))
         }
