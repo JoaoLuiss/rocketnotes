@@ -18,16 +18,16 @@ export function Home() {
   const [notes, setNotes] = useState([]);
 
   function handleToggleTags(tagName) {
+    if (tagName === 'Todos') {
+      return  setTagsSelected([]);
+    }
+    
     const alreadySelected = tagsSelected.includes(tagName);
     if (alreadySelected) {
       setTagsSelected( prevState => prevState.filter( tag => tag !== tagName));
     } else {
       setTagsSelected( prevState => [...prevState, tagName]);
     }
-  }
-
-  function handleSelectAllTags() {
-    setTagsSelected(tags);
   }
 
   useEffect( () => {
@@ -63,8 +63,8 @@ export function Home() {
         <li>
           <ButtonText 
             title='Todos' 
-            onClick={ handleSelectAllTags }
-            isActive={ tagsSelected.length === tags.length }
+            onClick={ () => handleToggleTags('Todos') }
+            isActive={ tagsSelected.length === 0 }
             />
         </li>
         {
