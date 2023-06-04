@@ -5,7 +5,7 @@ import { api } from '../../services/api';
 import { Header } from '../../components/Header';
 import { Button } from '../../components/Button';
 import { Section } from '../../components/Section';
-import { Tag } from '../../components/tags'; 
+import { Tag } from '../../components/Tags'; 
 import { ButtonText } from '../../components/ButtonText';
 
 import { Container, Links, Content } from './styles';
